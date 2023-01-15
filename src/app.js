@@ -10,7 +10,6 @@ const logger = require('morgan');
 
 const auth = require('./routes/auth')
 const posts = require('./routes/posts')
-exports.supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 var app = express();
 
@@ -27,10 +26,6 @@ app.get('/', (req, res) => {
   res.redirect('/api-docs');
   res.end();
 });
-
-app.listen(3100, () => {
-  console.log(`Example app listening on port 3100`)
-})
 
 app.use((_req, _res, next) => {
 

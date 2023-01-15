@@ -4,9 +4,10 @@
   "description": "back-end for blogger application",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "netlify-lambda serve src",
-    "build": "netlify-lambda build src"
+    "start": "NODE_ENV=production node ./src/bin/www",
+    "dev": "NODE_ENV=development nodemon ./src/bin/www",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "author": "KontraSystem",
   "license": "ISC",
@@ -31,6 +32,13 @@
     "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.12",
     "supabase": "^1.30.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "*.test.js"
+    ]
   }
 }
