@@ -4,7 +4,9 @@
   "description": "back-end for blogger application",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "netlify-lambda serve src",
+    "build": "netlify-lambda build src"
   },
   "author": "KontraSystem",
   "license": "ISC",
@@ -22,7 +24,10 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
+    "netlify-lambda": "^2.0.15",
     "pg": "^8.8.0",
+    "pg-native": "^3.0.1",
+    "serverless-http": "^3.1.1",
     "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
