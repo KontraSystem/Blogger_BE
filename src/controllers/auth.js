@@ -35,15 +35,15 @@ exports.register =  async (req, res) => {
 	const query = await client.query('SELECT public.f_create_user($1, $2, $3)', [req.body.username, req.body.password, req.body.email])
 	//console.log(req)
 	const { success, data } = query.rows[0].f_create_user
-
+	const user = await client.query("SELECT id, username, email from public.users WHERE")
 	console.log(query.rows[0].f_create_user)
 	if (success) { 
-		//const token = jwt.sign({ data.id, data.email }, process.env.SECRET);
+		const token = jwt.sign({ id, email }, process.env.JWT)
 		
 		res.send({
 			success: true,
-			message: "Success",
-			//token: token
+			data: data,
+			token: token
 		});
 	}
 	else { 
