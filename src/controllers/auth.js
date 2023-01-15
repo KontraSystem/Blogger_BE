@@ -33,11 +33,10 @@ exports.updateUser = async (req, res) => {
 exports.register =  async (req, res) => {
 
 	const query = await client.query('SELECT public.f_create_user($1, $2, $3)', [req.body.username, req.body.password, req.body.email])
-	//console.log(req)
+	console.log(query.rows[0])
 	const { success, data } = query.rows[0].f_create_user
-	const user = await client.query("SELECT id, username, email from public.users WHERE")
-	console.log(query.rows[0].f_create_user)
 	if (success) { 
+		const { id, email } = data
 		const token = jwt.sign({ id, email }, process.env.JWT)
 		
 		res.send({
@@ -45,15 +44,17 @@ exports.register =  async (req, res) => {
 			data: data,
 			token: token
 		});
-	}
-	else { 
+	}else { 
+		res.send({
+			success: false
+		})
 	}
 }
 
 exports.login = async (req, res) => {
 	const query = await client.query('SELECT public.f_get_user_by_login($1, $2)', [req.body.email, req.body.password])
 	const { success, data } = query.rows[0].f_get_user_by_login
-	console.log("loginIS", data, req.body.email, req.body.password)
+	
 	if(success) {
 		const { id, email } = data
 		const token = jwt.sign({ id, email }, process.env.JWT)
